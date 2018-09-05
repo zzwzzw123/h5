@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/**
+			 * 地理定位的函数
+			 */
+			function getLocation() {
+				
+				//判断浏览器是否支持html5地理定位
+				if (navigator.geolocation) {
+					
+					//定位方法
+						//参数1：定位成功回调函数
+						//参数2：定位失败的回调函数
+					navigator.geolocation.getCurrentPosition(showMap,handlerError,{
+						enableHighAccuracy:true, //是否高精度定位
+						maximumAge:1000 //每隔多少毫秒重新获得一次位置（只适合用在实时定位方法中）
+					});
+					
+				} else {
+					alert('当前浏览器不支持html5的地理定位');
+				}
+			}
+			
+			/**
+			 * 定位成功的回调函数，参数就是坐标对象
+			 */
+			function showMap(loc) {
+				
+				var longitude = loc.coords.longitude;//经度
+				var latitude = loc.coords.latitude;//纬度
+				
+				alert('定位成功，当前经纬度：' + longitude + ',' + latitude);
+			}
+			
+			/**
+			 * 定位失败的回调函数
+			 */
+			function handlerError(err) {
+				
+				if (err.code == 1) {
+					alert('位置服务被拒绝，请开启');
+				} else if (err.code == 2) {
+					alert('无法获得用户位置');
+				} else if (err.code == 3) {
+					alert('定位超时');
+				} else if (err.code == 4) {
+					alert('未知错误无法定位');
+				}
+				
+			}
+			
+			//调研地理定位
+			getLocation();
+		</script>		
+	</body>
+</html>

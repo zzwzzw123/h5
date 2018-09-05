@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<video id="myVideo" src="img/demo.mp4" controls width="500">
+			当前浏览器不支持H5的视频标签
+		</video>
+		
+		<br />
+		
+		<input type="button" value="播放" id="playBtn" onclick="play();"/>
+		<input type="button" value="快进10秒" onclick="go(10);"/>
+		<input type="button" value="后退10秒" onclick="go(-10);"/>
+		<input type="button" value="3倍速播放" onclick="speed(3);"/>
+		<input type="button" value="0.5倍速播放" onclick="speed(0.5);"/>
+		<input type="button" value="正常倍速播放" onclick="speed(1);"/>
+		<input type="button" value="增大音量" onclick="setVolume(0.1);"/>
+		<input type="button" value="减小音量" onclick="setVolume(-0.1);"/>
+		<input type="button" value="静音" onclick="setMuted();"/>
+		<input type="button" value="播放时长" onclick="getLong();"/>
+		
+		<script type="text/javascript">
+			
+			//获得对象
+			var myVideo = document.getElementById('myVideo');
+			var playBtn = document.getElementById('playBtn');
+			
+			/**
+			 * 播放和暂停
+			 */
+			function play() {
+				
+				//判断当前是否是停止或暂停状态
+				if(myVideo.paused) {
+					myVideo.play();//播放
+					playBtn.value = '暂停';
+				} else {
+					myVideo.pause();//暂停
+					playBtn.value = '播放';
+				}
+				
+			}
+			
+			/**
+			 * 进度控制
+			 * @param {Object} i
+			 */
+			function go(i) {
+				myVideo.currentTime += i;
+			}
+			
+			/**
+			 * 倍速控制
+			 */
+			function speed(i) {
+				myVideo.playbackRate = i;
+			}
+			
+			/**
+			 * 音量调节
+			 */
+			function setVolume(i) {
+				myVideo.volume += i;
+			}
+			
+			/**
+			 * 静音
+			 */
+			function setMuted() {
+				myVideo.muted = !myVideo.muted;
+			}
+			
+			/**
+			 * 获得播放时长
+			 */
+			function getLong() {
+				alert('总播放时长：' + myVideo.duration);
+			}
+			
+			/**
+			 * 加载完毕事件
+			 */
+			myVideo.onloadedmetadata = function() {
+				console.log('视频加载完毕，可以播放');
+			}
+			
+			/**
+			 * 播放事件
+			 */
+			myVideo.onplay = function() {
+				console.log('视频播放');
+			}
+			
+			/**
+			 * 暂停事件
+			 */
+			myVideo.onpause = function() {
+				console.log('视频暂停');
+			}
+			
+			/**
+			 * 播放完毕
+			 */
+			myVideo.onended = function() {
+				console.log('视频播放完毕');
+			}
+		</script>
+	</body>
+</html>

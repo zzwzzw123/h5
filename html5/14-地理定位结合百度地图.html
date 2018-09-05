@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			html,body {
+				width: 100%;
+				height: 100%;
+			}
+			#mapDiv {
+				width: 100%;
+				height: 100%;
+			}			
+		</style>
+	</head>
+	<body>
+		<!--显示地图的div-->
+		<div id="mapDiv">
+
+		</div>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=yrxwDbDQDWBeEMrxj31ye00z97ibGloL"></script>
+		<script>
+			
+			//地理定位的函数
+
+			function getLocation() {
+				//判断当前浏览器是否支持h5定位
+				if (navigator.geolocation){
+					
+					//定位方法
+					//参数一：定位成功回调函数
+					//参数二，定位失败的回调
+					//参数三，
+					navigator.geolocation.getCurrentPosition(showMap,handlerError,{
+						enableHighAccuracy:true,//是否高精度定位
+						maximumAge:1000//每隔多少毫秒重新获得定位，只适合用在实时定位方法中
+					});
+
+				}else{
+					alert('当前浏览器不支持h5的地理定位');
+				}
+				
+			}
+			
+			//定位成功
+			function showMap(loc) {
+				
+				var longitude = loc.coords.longitude;//经度
+				var latitude = loc.coords.latitude;//纬度
+				
+				//经纬度
+				var lng = longitude;
+				var lat = latitude;
+				
+				//创建一个地图对象
+				var map = new BMap.Map('mapDiv');
+				//创建坐标点对象
+				var point = new BMap.Point(lng,lat);
+				//设置按照坐标点显示地图
+				map.centerAndZoom(point,17);
+				
+				//创建标记点对象
+				var marker = new BMap.Marker(point);
+				//在地图上添加标记
+				map.addOverlay(marker);
+				
+				//创建一个label
+				var label = new BMap.Label('中软国际实训基地',{offset:new BMap.Size(20,-20)});
+				//在标记点中添加label
+				marker.setLabel(label);
+				//添加地图类型控件，默认在地图右上方
+				map.addControl(new BMap.MapTypeControl());
+				//地图平移缩放控件，PC端默认地图左上方，移动端提供缩放控件，默认在地图右下方
+				map.addControl(new BMap.NavigationControl());
+				//比例尺控件，默认在地图左下方，显示地图的比例关系
+				map.addControl(new BMap.ScaleControl());
+				//缩略地图控件，默认在地图右下方，是一个可折叠的缩略地图
+				map.addControl(new BMap.OverviewMapControl());
+				//定位控件，针对于移动端，默认在地图左下方
+				map.addControl(new BMap.GeolocationControl());
+				//开启滚轮缩放
+				map.enableScrollWheelZoom(true);
+				
+			}
+			
+			//定位失败回调
+			function handlerError(err) {
+				
+				if(err.code == 1){
+					alert('位置服务被拒绝，请开启');
+				}else if(err.code == 2){
+					alert('无法获得用户位置');
+				}else if(err.code == 3){
+					alert('定位超时');
+				}else if(err.code == 4){
+					alert('未知错误，无法定位');
+				}
+				
+		
+			}
+			
+			//调用地理定位
+			 getLocation();
+			 
+			 
+		</script>
+	</body>
+</html>

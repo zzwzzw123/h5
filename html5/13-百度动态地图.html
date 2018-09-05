@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			html,body {
+				height: 100%;
+			}
+			
+			#mapDiv {
+				height: 100%;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<!--显示地图的div-->
+		<div id="mapDiv">
+			
+		</div>
+		
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=yrxwDbDQDWBeEMrxj31ye00z97ibGloL"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				
+				//经纬度
+				var lng = 121.523239;
+				var lat = 38.866982;
+				
+				//创建一个地图对象
+				var map = new BMap.Map('mapDiv');
+				//创建坐标点对象
+				var point = new BMap.Point(lng,lat);
+				//按照坐标点显示地图
+				map.centerAndZoom(point,18);
+				
+				//创建标记点对象
+				var marker = new BMap.Marker(point);
+				//在地图上添加标记点
+				map.addOverlay(marker);
+				
+				//创建label对象
+				var label = new BMap.Label('中软国际实训基地',{offset:new BMap.Size(20,-20)});
+				//标记点中添加label
+				marker.setLabel(label);
+				
+				//添加地图类型控件，默认在地图右上方
+				map.addControl(new BMap.MapTypeControl());
+				//地图平移缩放控件，PC端默认地图左上方，移动端提供缩放控件，默认在地图右下方
+				map.addControl(new BMap.NavigationControl());
+				//比例尺控件，默认在地图左下方，显示地图的比例关系
+				map.addControl(new BMap.ScaleControl());
+				//缩略地图控件，默认在地图右下方，是一个可折叠的缩略地图
+				map.addControl(new BMap.OverviewMapControl());
+				//定位控件，针对于移动端，默认在地图左下方
+				map.addControl(new BMap.GeolocationControl());
+				//开启滚轮缩放
+				map.enableScrollWheelZoom(true);
+
+			}
+		</script>
+	</body>
+</html>

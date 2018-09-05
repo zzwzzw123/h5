@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" placeholder="请输入一个地址" id="address"/>
+		<input type="button" value="地址转坐标" id="btn1"/>
+		<div>
+			经度：<span id="lng"></span>
+			<br />
+			纬度：<span id="lat"></span>
+		</div>
+		
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					var url = 'http://api.map.baidu.com/geocoder/v2/?callback=?&output=json&ak=y5GZu9F0wZtSO7LC5Z7P6htKxq0e5TkG'
+					
+					var param = {
+						address:$('#address').val()
+					}
+					
+					$.getJSON(url,param,function(data) {
+						
+						$('#lng').text(data.result.location.lng);
+						$('#lat').text(data.result.location.lat);
+						
+					});
+				});
+				
+			});
+		</script>
+	</body>
+</html>

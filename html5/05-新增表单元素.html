@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<fieldset>
+			<legend>新增表单元素</legend>
+			
+			<form action="">
+				<input type="search" placeholder="请输入搜索关键字"/>
+				
+				<br />
+				
+				<input type="text" list="datalist1"/>
+				<datalist id="datalist1">
+					<option value="beijing" label="北京"></option>
+					<option value="shanghai" label="上海"></option>
+					<option value="nanjing" label="南京"></option>
+					<option value="nanchang" label="南昌"></option>
+				</datalist>
+				
+				<br />
+				
+				<input type="number" min="0" max="10" value="5" step="2" />
+				
+				<br />
+				
+				<input type="range" min="0" max="10" step="1" onchange="m1(this);"/>
+				<input type="text" id="num" />
+				<script>
+					function m1(obj) {						
+						var num = document.getElementById('num');
+						num.value = obj.value;					
+					}					
+				</script>
+				
+				<br />
+				
+				<input type="color" />
+				
+				<br />
+				
+				<input type="tel" />
+				
+				<br />
+				
+				<input type="url" />
+				
+				<br />
+				
+				<input type="email" />
+				
+				<br />
+				
+				<input type="date" />
+				
+				<br />
+				
+				<input type="time" />
+				
+			</form>
+			
+		</fieldset>		
+	</body>
+</html>
